@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171412">
+  <meta name="description" content="Portafolio personal de Jatniel Rodríguez: tecnología, ciberseguridad, hardware, soporte técnico y creatividad.">
+  <title>Jatniel Rodríguez — Portafolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      /* PALETA PRINCIPAL: cambia estos valores para personalizar los colores */
+      --bg: #171a13;                 /* fondo verde casi negro */
+      --panel: rgba(38, 43, 31, .78);
+      --panel-strong: rgba(45, 51, 36, .93);
+      --line: rgba(194, 184, 139, .20);
+      --text: #eee9d8;               /* texto marfil */
+      --muted: #b9b79f;              /* texto secundario */
+      --soft: #898b72;
+      --accent: #a7a477;             /* verde oliva */
+      --accent-bright: #c8c69a;      /* oliva claro */
+      --green: #a8b88a;              /* verde salvia */
+      --shadow: 0 22px 70px rgba(0,0,0,.34);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0; color: var(--text); background: var(--bg);
+      font-family: "DM Sans", sans-serif; line-height: 1.65; overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -3;
+      background:
+        radial-gradient(ellipse at 15% 8%, rgba(132, 79, 58, .36), transparent 34%),
+        radial-gradient(ellipse at 85% 25%, rgba(91, 94, 87, .28), transparent 35%),
+        radial-gradient(ellipse at 55% 90%, rgba(116, 72, 48, .22), transparent 38%),
+        linear-gradient(135deg, #171513, #211b18 55%, #151515);
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: .2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 42px)); margin: auto; }
+    .mono { font-family: "DM Mono", monospace; }
+    .eyebrow { color: var(--accent-bright); font: 500 .72rem "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+    .section { padding: 104px 0 20px; }
+    .section-heading { max-width: 680px; margin-bottom: 34px; }
+    .section-heading h2 { margin: 8px 0 10px; font: 800 clamp(1.8rem, 4vw, 2.6rem) Manrope, sans-serif; letter-spacing: -.045em; }
+    .section-heading p { color: var(--muted); margin: 0; }
+
+    /* Navegación */
+    .topbar {
+      position: sticky; top: 0; z-index: 20; backdrop-filter: blur(20px);
+      background: rgba(20, 17, 15, .78); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { font: 700 .95rem "DM Mono", monospace; letter-spacing: -.04em; white-space: nowrap; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 5px; }
+    .nav-links a {
+      color: var(--muted); padding: 9px 11px; border-radius: 9px;
+      font: 500 .73rem "DM Mono", monospace; transition: .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent-bright); background: rgba(216,167,131,.1); }
+    .menu-toggle { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
+
+    /* Componentes */
+    .glass {
+      background: linear-gradient(135deg, rgba(65,49,40,.72), rgba(30,27,25,.78));
+      border: 1px solid rgba(229,195,165,.17); box-shadow: var(--shadow);
+      backdrop-filter: blur(18px); border-radius: var(--radius);
+    }
+    .soft-card {
+      background: rgba(34,30,27,.68); border: 1px solid var(--line);
+      border-radius: 15px; transition: transform .25s, border-color .25s, background .25s;
+    }
+    .soft-card:hover { transform: translateY(-4px); border-color: rgba(216,167,131,.38); background: rgba(47,38,32,.82); }
+    .pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: #d8c4b3; background: rgba(255,255,255,.035); font: .68rem "DM Mono", monospace; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(168,198,160,.65); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 10px; padding: 12px 17px; font-weight: 700; font-size: .82rem; transition: .2s; }
+    .btn-primary { color: #251b15; background: linear-gradient(135deg, #edc09e, #c9936e); box-shadow: 0 8px 25px rgba(201,147,110,.18); }
+    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.07); }
+    .btn-ghost { border: 1px solid rgba(229,195,165,.24); color: var(--text); background: rgba(255,255,255,.035); }
+    .btn-ghost:hover { background: rgba(216,167,131,.1); border-color: var(--accent); }
+    .icon { color: var(--accent-bright); font-size: 1.15rem; }
+
+    /* Inicio */
+    .hero { padding: 76px 0 54px; }
+    .hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 42px; align-items: center; }
+    .hero h1 { font: 800 clamp(2.7rem, 6vw, 5.15rem)/1.02 Manrope, sans-serif; letter-spacing: -.07em; margin: 17px 0 15px; }
+    .hero h1 span { color: var(--accent-bright); }
+    .hero-subtitle { color: #d7c6b8; font: 500 1rem "DM Mono", monospace; }
+    .hero-copy { max-width: 590px; color: var(--muted); font-size: 1rem; margin: 20px 0 25px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 27px; }
+    .profile-panel { padding: 25px; position: relative; overflow: hidden; }
+    .profile-panel::before { content:""; position:absolute; width:220px;height:220px;right:-85px;top:-100px;border-radius:50%;background:rgba(207,145,104,.18);filter:blur(10px); }
+    .profile-top { display:flex; justify-content:space-between; align-items:center; color:var(--soft); font: .7rem "DM Mono",monospace; }
+    .avatar-wrap { display:flex; justify-content:center; margin:24px 0 16px; }
+    .avatar {
+      width: 132px; height: 132px; border-radius: 50%; display:grid; place-items:center;
+      border: 1px solid rgba(245,207,177,.52); outline: 7px solid rgba(245,207,177,.06);
+      background: radial-gradient(circle at 30% 25%, #b98d72, #65483c 52%, #292321);
+      color: #f6e7da; font: 700 2.5rem Manrope; letter-spacing: -.08em;
+      box-shadow: 0 12px 40px rgba(0,0,0,.32);
+    }
+    .profile-panel h2 { text-align:center; margin:0; font:700 1.35rem Manrope; }
+    .profile-panel .role { text-align:center; color:var(--muted); font-size:.83rem; margin:3px 0 20px; }
+    .profile-links { display:flex; justify-content:center; gap:9px; margin-bottom:22px; }
+    .social-dot { width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--accent-bright);font-size:.85rem; }
+    .terminal { background:rgba(17,17,17,.56); border:1px solid rgba(229,195,165,.15); border-radius:12px; padding:15px 16px; font: .7rem/1.9 "DM Mono",monospace; color:#c2b3a7; }
+    .terminal-head { display:flex; gap:5px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.07); margin-bottom:10px; }
+    .terminal-head i { width:7px;height:7px;border-radius:50%;background:#765f52; }
+    .terminal b { color:var(--green); font-weight:500; }
+    .terminal .dim { color:#897e75; }
+
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:35px; }
+    .stat { padding:17px 18px; border-left:1px solid rgba(216,167,131,.38); background:rgba(255,255,255,.025); }
+    .stat strong { display:block; font:700 1.15rem Manrope; color:var(--accent-bright); }
+    .stat span { color:var(--muted); font-size:.73rem; }
+
+    /* Sobre mí */
+    .about-grid { display:grid;grid-template-columns:1.2fr .8fr;gap:22px; }
+    .about-copy { padding:28px; }
+    .about-copy p { color:var(--muted); margin:0 0 15px; }
+    .about-copy p:last-child { margin-bottom:0; }
+    .info-card { padding:25px; }
+    .info-row { display:flex;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.82rem; }
+    .info-row:last-child { border:0; }
+    .info-row span:first-child { color:var(--soft); }
+    .info-row span:last-child { text-align:right;color:#eadbce; }
+
+    /* Habilidades */
+    .skills-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+    .skill-card { padding:21px; }
+    .skill-card h3 { margin:9px 0 6px;font:700 .98rem Manrope; }
+    .skill-card p { margin:0;color:var(--muted);font-size:.82rem; }
+    .skill-tag { display:inline-block;margin-top:14px;color:var(--accent-bright);font: .65rem "DM Mono",monospace; }
+    .skill-icon { width:37px;height:37px;display:grid;place-items:center;border-radius:11px;background:rgba(216,167,131,.1);color:var(--accent-bright);font-size:1.1rem; }
+
+    /* Experiencia y proyectos */
+    .timeline { position:relative;display:grid;gap:14px; }
+    .timeline-item { display:grid;grid-template-columns:150px 1fr;gap:20px;padding:23px; }
+    .timeline-date { color:var(--accent-bright);font:.72rem "DM Mono",monospace; }
+    .timeline-item h3 { margin:0 0 6px;font:700 1rem Manrope; }
+    .timeline-item p { margin:0;color:var(--muted);font-size:.86rem; }
+    .project-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:15px; }
+    .project { overflow:hidden; }
+    .project-art { min-height:145px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(136,91,66,.55),rgba(36,36,34,.8)); }
+    .project-art::before,.project-art::after { content:"";position:absolute;border:1px solid rgba(240,196,161,.25);border-radius:50%;width:180px;height:180px; }
+    .project-art::after { width:120px;height:120px; }
+    .project-symbol { z-index:1;font-size:2.2rem;color:#f0c4a1;text-shadow:0 4px 20px #000; }
+    .project-body { padding:21px; }
+    .project-body h3 { margin:0 0 7px;font:700 1rem Manrope; }
+    .project-body p { margin:0;color:var(--muted);font-size:.83rem; }
+    .tags { display:flex;flex-wrap:wrap;gap:7px;margin-top:14px; }
+
+    /* Formación / fotografía / metas */
+    .edu-grid { display:grid;grid-template-columns:1fr 1fr;gap:15px; }
+    .edu-card { padding:23px; }
+    .edu-card h3 { margin:8px 0 6px;font:700 1rem Manrope; }
+    .edu-card p { margin:0;color:var(--muted);font-size:.84rem; }
+    .photo-note { padding:27px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px; }
+    .photo-mark { width:95px;height:95px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(145deg,#88624e,#332923);font-size:2rem;color:#f1c7a7; }
+    .goals-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+    .goal { padding:22px; }
+    .goal h3 { margin:10px 0 6px;font:700 .98rem Manrope; }
+    .goal p { margin:0;color:var(--muted);font-size:.82rem; }
+    .contact-box { padding:35px;display:flex;align-items:center;justify-content:space-between;gap:25px; }
+    .contact-box h2 { margin:8px 0;font:800 clamp(1.6rem,4vw,2.4rem) Manrope;letter-spacing:-.05em; }
+    .contact-box p { margin:0;color:var(--muted);max-width:560px; }
+    footer { padding:40px 0 28px;color:var(--soft);font:.68rem "DM Mono",monospace; }
+    .footer-inner { display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding-top:20px; }
+
+    @media (max-width: 850px) {
+      .nav-links { display:none;position:absolute;top:71px;left:0;right:0;padding:14px 22px 20px;background:rgba(20,17,15,.97);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch; }
+      .nav-links.open { display:flex; }
+      .nav-links a { padding:12px; }
+      .menu-toggle { display:block; }
+      .hero-grid,.about-grid { grid-template-columns:1fr; }
+      .profile-panel { max-width:520px; }
+      .skills-grid { grid-template-columns:repeat(2,1fr); }
+      .goals-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .container { width:min(100% - 28px,var(--max)); }
+      .hero { padding-top:54px; }
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .skills-grid,.project-grid,.edu-grid,.goals-grid { grid-template-columns:1fr; }
+      .timeline-item { grid-template-columns:1fr;gap:8px; }
+      .photo-note,.contact-box { grid-template-columns:1fr;display:grid; }
+      .contact-box { padding:25px; }
+      .footer-inner { flex-direction:column; }
+      .section { padding-top:78px; }
+    }
+
+    /* ===== TEMA OLIVA Y TIERRA: ajustes visuales ===== */
+    body::before {
+      background:
+        radial-gradient(ellipse at 15% 8%, rgba(104, 113, 67, .34), transparent 36%),
+        radial-gradient(ellipse at 85% 25%, rgba(105, 91, 62, .25), transparent 36%),
+        radial-gradient(ellipse at 55% 90%, rgba(76, 91, 57, .24), transparent 40%),
+        linear-gradient(135deg, #171a13, #24271c 55%, #171914);
+    }
+    .topbar { background: rgba(23, 26, 19, .82); }
+    .glass {
+      background: linear-gradient(135deg, rgba(58, 64, 43, .76), rgba(30, 34, 26, .82));
+      border-color: rgba(194, 184, 139, .20);
+    }
+    .soft-card { background: rgba(39, 44, 32, .72); }
+    .soft-card:hover { background: rgba(53, 59, 40, .88); border-color: rgba(167, 164, 119, .48); }
+    .nav-links a:hover, .nav-links a.active { background: rgba(167, 164, 119, .13); }
+    .btn-primary {
+      color: #202318;
+      background: linear-gradient(135deg, #c8c69a, #92966b);
+      box-shadow: 0 8px 25px rgba(117, 125, 76, .20);
+    }
+    .btn-ghost { border-color: rgba(194, 184, 139, .28); }
+    .btn-ghost:hover { background: rgba(167, 164, 119, .13); }
+    .avatar {
+      border-color: rgba(210, 207, 158, .55);
+      outline-color: rgba(210, 207, 158, .08);
+      background: radial-gradient(circle at 30% 25%, #a7a477, #596044 52%, #292d22);
+      color: #f0eedc;
+    }
+    .profile-panel::before { background: rgba(151, 151, 99, .20); }
+    .terminal { background: rgba(14, 18, 13, .66); border-color: rgba(194, 184, 139, .18); }
+    .terminal-head i { background: #727b55; }
+    .stat { border-left-color: rgba(167, 164, 119, .48); }
+    .info-row span:last-child { color: #e3e1cb; }
+    .skill-icon { background: rgba(167, 164, 119, .13); }
+    .project-art {
+      background: linear-gradient(135deg, rgba(105, 112, 69, .55), rgba(37, 42, 30, .86));
+    }
+    .project-art::before, .project-art::after { border-color: rgba(200, 198, 154, .27); }
+    .project-symbol { color: #d6d3a6; }
+    .photo-mark { background: linear-gradient(145deg, #77784f, #343b29); color: #e1dfb8; }
+    .nav-links { background-color: rgba(23, 26, 19, .97); }
+\n
+    /* ===== SECCIÓN DE MÚSICA PERSONALIZABLE ===== */
+    .music-panel {
+      padding: clamp(22px, 4vw, 38px);
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(280px, 1.2fr);
+      gap: 30px;
+      align-items: center;
+    }
+    .music-intro h3 {
+      margin: 8px 0 10px;
+      font: 800 clamp(1.5rem, 3vw, 2rem) Manrope, sans-serif;
+      letter-spacing: -.04em;
+    }
+    .music-list { display: grid; gap: 9px; }
+    .music-track {
+      width: 100%; text-align: left; color: var(--text); font: inherit;
+      display: flex; align-items: center; gap: 13px;
+      padding: 12px 14px; border: 1px solid var(--line);
+      border-radius: 12px; background: rgba(167, 164, 119, .07);
+      transition: .2s; cursor: pointer;
+    }
+    .music-track:hover, .music-track.is-playing {
+      transform: translateX(4px); background: rgba(167, 164, 119, .15);
+      border-color: rgba(200, 198, 154, .42);
+    }
+    .music-number {
+      display: grid; place-items: center; flex: 0 0 30px; height: 30px;
+      border-radius: 9px; color: var(--accent-bright);
+      background: rgba(167, 164, 119, .14);
+      font: .72rem "DM Mono", monospace;
+    }
+    .music-track strong { display: block; font-size: .88rem; }
+    .music-track small { display: block; margin-top: 2px; color: var(--muted); font-size: .75rem; }
+    .music-player {
+      margin-top: 15px; padding: 16px; border: 1px solid var(--line);
+      border-radius: 13px; background: rgba(14, 18, 13, .38);
+    }
+    .music-now { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:12px; }
+    .music-now strong { font-size:.85rem; }
+    .music-now small { color:var(--muted); font-size:.72rem; }
+    .music-controls { display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+    .music-control {
+      border:1px solid var(--line); border-radius:9px; padding:8px 12px;
+      color:var(--text); background:rgba(167,164,119,.12); cursor:pointer;
+    }
+    .music-control:hover { background:rgba(167,164,119,.23); }
+    .music-progress { width:100%; accent-color:var(--accent-bright); cursor:pointer; }
+    .music-bottom { display:flex; justify-content:space-between; gap:12px; align-items:center; color:var(--muted); font:.68rem "DM Mono",monospace; }
+    .music-volume { display:flex; align-items:center; gap:8px; margin-left:auto; color:var(--muted); font-size:.75rem; }
+    .music-volume input { width:85px; accent-color:var(--accent-bright); }
+    @media (max-width: 760px) {
+      .music-panel { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav container" aria-label="Navegación principal">
+      <!-- PERSONALIZAR: nombre corto/marca que aparece en la barra superior -->\n      <a class="brand" href="#inicio">Jath<span>/</span>Luigi</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#formacion">Formación</a>
+        <a href="#musica">Música</a>
+        <a href="#metas">Metas</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="inicio">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot" style="display:inline-block;margin-right:8px"></span> Portafolio personal · Panamá</div>
+          <!-- PERSONALIZAR: nombre y presentación principal -->\n          <h1>Hola, soy<br><span>Jatniel Rodríguez.</span></h1>
+          <div class="hero-subtitle">Ciberseguridad · Hardware · Tecnología</div>
+          <p class="hero-copy">Estudiante de ciberseguridad y entusiasta de la tecnología. Me interesa entender cómo funcionan los sistemas, experimentar con hardware y software, y encontrar soluciones prácticas a problemas técnicos.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#proyectos">Explorar mi experiencia <span>↗</span></a>
+            <a class="btn btn-ghost" href="#contacto">Ponerse en contacto</a>
+          </div>
+          <div class="hero-meta">
+            <span class="pill">📍 Chiriquí, Panamá</span>
+            <span class="pill">Estudiante · 11.º grado</span>
+            <span class="pill">Aprendizaje continuo</span>
+          </div>
+        </div>
+
+        <aside class="profile-panel glass">
+          <div class="profile-top"><span>PROFILE / 001</span><span>● ● ●</span></div>
+          <div class="avatar-wrap">
+            <!-- FOTO DE PERFIL: guarda tu imagen junto a este HTML y cambia el bloque JR por: <img class="avatar" src="foto-perfil.jpg" alt="Foto de Jatniel Rodríguez"> -->
+            <img
+  src="foto-perfil.jpg"
+  alt="Proyecto de mantenimiento"
+  style="width:100%; border-radius:12px;"
+>
+          </div>
+          <h2>Jatniel Rodríguez</h2>
+          <p class="role">Estudiante de ciberseguridad</p>
+          <div class="profile-links">
+            <a class="social-dot" href="#contacto" aria-label="Contacto">✉</a>
+            <a class="social-dot" href="#proyectos" aria-label="Proyectos">⌘</a>
+            <a class="social-dot" href="#fotografia" aria-label="Fotografía">▧</a>
+          </div>
+          <div class="terminal">
+            <div class="terminal-head"><i></i><i></i><i></i><span style="margin-left:7px">Jatniel-portfolio:</span></div>
+            <div><b>Acerca de mi</b></div>
+            <div class="dim">estudiante · entusiasta tecnológico</div>
+            <div><b>Intereses</b></div>
+            <div>hardware / cybersecurity / web / emulation</div>
+            <div><b>Enfoque actual</b></div>
+            <div class="dim">CiberIstmo 2026–2027 · aprendizaje web</div>
+            <div><b><span style="color:var(--green)"></span></b></div>
+          </div>
+        </aside>
+      </div>
+      <!-- PERSONALIZAR: cifras/resumen breve de tu experiencia -->\n      <div class="stats">
+        <div class="stat"><strong>4+</strong><span>Años de interés tecnológico</span></div>
+        <div class="stat"><strong>Windows</strong><span>Entorno principal</span></div>
+        <div class="stat"><strong>Práctica</strong><span>Aprendizaje autónomo</span></div>
+        <div class="stat"><strong>En curso</strong><span>Formación en ciberseguridad</span></div>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 01: presentación, institución, ubicación e intereses -->\n    <section class="section container" id="sobre-mi">
+      <div class="section-heading">
+        <div class="eyebrow">01 / Sobre mí</div>
+        <h2>Un poco sobre mi camino.</h2>
+        <p>La curiosidad ha sido mi principal punto de partida para aprender tecnología.</p>
+      </div>
+      <div class="about-grid">
+        <article class="about-copy glass">
+          <p>Soy estudiante de undécimo grado en el <strong>Centro Educativo de Progreso</strong>, en Chiriquí, Panamá, donde curso el Bachillerato en Ciencias con énfasis en Ciberseguridad.</p>
+          <p>Mi interés por la informática comenzó desde pequeño y, con el tiempo, se convirtió en una afición por investigar, configurar, reparar y comprender el funcionamiento de equipos y programas.</p>
+          <p>Me atraen especialmente el hardware, el mantenimiento de computadoras y consolas, la compatibilidad de software, la emulación y la ciberseguridad defensiva. También estoy explorando el desarrollo web con HTML.</p>
+          <p>Me considero una persona paciente, curiosa y dispuesta a ayudar. Cuando encuentro un problema, suelo investigar, probar distintas alternativas y aprender durante el proceso.</p>
+        </article>
+        <aside class="info-card soft-card">
+          <div class="eyebrow">Ficha personal</div>
+          <div class="info-row"><span>Ubicación</span><span>Chiriquí, Panamá</span></div>
+          <div class="info-row"><span>Institución</span><span>Centro Educativo de Progreso</span></div>
+          <div class="info-row"><span>Formación</span><span>Bachiller en Ciencias</span></div>
+          <div class="info-row"><span>Énfasis</span><span>Ciberseguridad</span></div>
+          <div class="info-row"><span>Idiomas</span><span>Español · Inglés</span></div>
+          <div class="info-row"><span>Intereses</span><span>Seguridad · Hardware · Web</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 02: agrega, elimina o corrige habilidades según tu nivel real -->\n    <section class="section container" id="habilidades">
+      <div class="section-heading">
+        <div class="eyebrow">02 / Habilidades</div>
+        <h2>Áreas que estoy desarrollando.</h2>
+        <p>Una combinación de conocimientos académicos, práctica personal y herramientas que utilizo para resolver problemas.</p>
+      </div>
+      <div class="skills-grid">
+        <article class="skill-card soft-card"><div class="skill-icon">⌘</div><h3>Hardware y mantenimiento</h3><p>Montaje y configuración de computadoras, mantenimiento básico de equipos y exploración de componentes electrónicos.</p><span class="skill-tag">EXPERIENCIA PRÁCTICA</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">▣</div><h3>Sistemas Windows</h3><p>Instalación, configuración, administración cotidiana, diagnóstico y resolución de problemas en Windows.</p><span class="skill-tag">BUEN DOMINIO</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">⌁</div><h3>Redes y CMD</h3><p>Uso de comandos como ipconfig, ping, tracert, netstat, ssh y herramientas de diagnóstico de conectividad.</p><span class="skill-tag">CONOCIMIENTOS PRÁCTICOS</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">◇</div><h3>Ciberseguridad</h3><p>Fundamentos de confidencialidad, integridad y disponibilidad, autenticación, copias de seguridad y amenazas digitales.</p><span class="skill-tag">EN FORMACIÓN</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">◉</div><h3>Emulación y compatibilidad</h3><p>Configuración de emuladores, controladores gráficos y opciones de rendimiento según las capacidades del equipo.</p><span class="skill-tag">EXPERIENCIA PERSONAL</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">〈/〉</div><h3>Desarrollo web</h3><p>Primeros pasos en HTML y creación de páginas web. Interés en continuar aprendiendo CSS y JavaScript.</p><span class="skill-tag">NIVEL INICIAL</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">▧</div><h3>Diseño y fotografía</h3><p>Manejo de Canva, Lightroom y Photoshop, además de experiencia realizando fotografía para actividades escolares.</p><span class="skill-tag">EXPERIENCIA PRÁCTICA</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">▤</div><h3>Software y herramientas</h3><p>Uso de Visual Studio Code, GitHub, Microsoft Office y utilidades de mantenimiento como BleachBit.</p><span class="skill-tag">USO HABITUAL</span></article>
+        <article class="skill-card soft-card"><div class="skill-icon">◎</div><h3>Organización técnica</h3><p>Gestión de versiones, dependencias y modificaciones en entornos de software, especialmente Minecraft.</p><span class="skill-tag">EXPERIENCIA PERSONAL</span></article>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 03: actividades escolares, colaboraciones y experiencia práctica -->\n    <section class="section container" id="experiencia">
+      <div class="section-heading">
+        <div class="eyebrow">03 / Experiencia</div>
+        <h2>Aprender haciendo.</h2>
+        <p>Aunque todavía no he tenido un empleo formal, he participado en actividades y trabajos prácticos relacionados con la tecnología.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item soft-card"><div class="timeline-date">ÁMBITO ESCOLAR</div><div><h3>Representante de tecnología</h3><p>Colaboración con otro estudiante en representación tecnológica del colegio, participación en seminarios y capacitaciones sobre ciberseguridad, uso responsable de equipos y herramientas de inteligencia artificial.</p></div></article>
+        <article class="timeline-item soft-card"><div class="timeline-date">COLABORACIÓN</div><div><h3>Montaje y configuración de computadoras</h3><p>Participación en la preparación y configuración de computadoras destinadas a otros centros educativos, desarrollando experiencia práctica con equipos y sistemas.</p></div></article>
+        <article class="timeline-item soft-card"><div class="timeline-date">EXPERIENCIA PERSONAL</div><div><h3>Mantenimiento de consolas</h3><p>Experiencia realizando tareas de mantenimiento en consolas Nintendo Switch y ayudando en la revisión de equipos.</p></div></article>
+        <article class="timeline-item soft-card"><div class="timeline-date">COLABORACIÓN ESCOLAR</div><div><h3>Fotografía para actividades del colegio</h3><p>Participación como fotógrafo en actividades escolares, aportando apoyo visual de manera voluntaria.</p></div></article>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 04: reemplaza ejemplos por proyectos reales y añade imágenes/enlaces -->\n    <section class="section container" id="proyectos">
+      <div class="section-heading">
+        <div class="eyebrow">04 / Proyectos y prácticas</div>
+        <h2>Curiosidad convertida en soluciones.</h2>
+        <p>Muchos de mis proyectos nacen de una necesidad concreta o de querer descubrir cómo funciona algo. Estos son algunos ejemplos de las áreas en las que he trabajado.</p>
+      </div>
+      <div class="project-grid">
+        <article class="project soft-card"><div class="project-art"><div class="project-symbol">▤</div></div><div class="project-body"><h3>Configuración de entornos de Minecraft</h3><p>Organización de mods, dependencias y versiones, resolución de incompatibilidades y personalización de elementos del juego.</p><div class="tags"><span class="pill">Modding</span><span class="pill">Compatibilidad</span><span class="pill">Java</span></div></div></article>
+        <article class="project soft-card"><div class="project-art"><div class="project-symbol">◉</div></div><div class="project-body"><h3>Optimización de emuladores</h3><p>Ajuste de controladores, APIs gráficas y configuraciones para adaptar emuladores a las capacidades de cada dispositivo.</p><div class="tags"><span class="pill">Emulación</span><span class="pill">Drivers</span><span class="pill">Rendimiento</span></div></div></article>
+        <article class="project soft-card"><div class="project-art"><div class="project-symbol">⌘</div></div><div class="project-body"><h3>Diagnóstico y mantenimiento de PC</h3><p>Resolución de inconvenientes de software y compatibilidad, pruebas con CMD y ajustes de configuración en Windows.</p><div class="tags"><span class="pill">Windows</span><span class="pill">CMD</span><span class="pill">Soporte</span></div></div></article>
+        <article class="project soft-card"><div class="project-art"><div class="project-symbol">〈/〉</div></div><div class="project-body"><h3>Exploración de desarrollo web</h3><p>Aprendizaje de HTML y creación de páginas como parte de mi objetivo de desarrollar sitios web funcionales y visualmente atractivos.</p><div class="tags"><span class="pill">HTML</span><span class="pill">Aprendizaje</span></div></div></article>
+      </div>
+      <p class="muted" style="font-size:.78rem;margin-top:15px">Nota: estos apartados describen experiencias y prácticas personales; no representan proyectos comerciales ni certificaciones profesionales.</p>
+    </section>
+
+    <!-- EDITAR SECCIÓN 05: estudios, cursos, seminarios y certificaciones -->\n    <section class="section container" id="formacion">
+      <div class="section-heading">
+        <div class="eyebrow">05 / Formación</div>
+        <h2>Aprendizaje en constante evolución.</h2>
+        <p>Mi formación combina estudios escolares, capacitaciones y aprendizaje independiente.</p>
+      </div>
+      <div class="edu-grid">
+        <article class="edu-card soft-card"><div class="eyebrow">FORMACIÓN ACADÉMICA</div><h3>Bachiller en Ciencias con énfasis en Ciberseguridad</h3><p>Centro Educativo de Progreso · Chiriquí, Panamá<br>Undécimo grado.</p></article>
+        <article class="edu-card soft-card"><div class="eyebrow">PROGRAMA ACTUAL</div><h3>CiberIstmo 2026–2027</h3><p>Participación en el programa nacional de ciberseguridad vinculado a Fundación Comunidad DOJO y SENACYT.</p></article>
+        <article class="edu-card soft-card"><div class="eyebrow">CAPACITACIONES</div><h3>Seminarios y encuentros tecnológicos</h3><p>Participación en actividades formativas sobre ciberseguridad, administración responsable de equipos y aplicaciones de inteligencia artificial.</p></article>
+        <article class="edu-card soft-card"><div class="eyebrow">APRENDIZAJE AUTÓNOMO</div><h3>Informática, hardware y software</h3><p>Investigación y práctica independiente en mantenimiento, Windows, emulación, redes y herramientas digitales.</p></article>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 06: añade aquí tus mejores fotografías -->\n    <section class="section container" id="fotografia">
+      <div class="section-heading">
+        <div class="eyebrow">06 / Otra perspectiva</div>
+        <h2>Tecnología y creatividad.</h2>
+        <p>También disfruto explorar el lado visual y creativo de la tecnología.</p>
+      </div>
+      <div class="photo-note glass">
+        <div><h3 style="font:700 1.15rem Manrope;margin:0 0 8px">Fotografía y diseño visual</h3><p class="muted" style="margin:0 0 15px">La fotografía me permite observar detalles que suelen pasar desapercibidos. He colaborado en actividades escolares y utilizo herramientas como Lightroom, Photoshop y Canva para trabajar con imágenes y diseños.</p><div class="tags"><span class="pill">Lightroom</span><span class="pill">Photoshop</span><span class="pill">Canva</span><span class="pill">Fotografía</span></div></div>
+        <div class="photo-mark">✧</div>
+      </div>
+    </section>
+
+
+    <!-- EDITAR SECCIÓN 07: MÚSICAS PARA CALMARME. Cambia títulos y artistas por tus canciones. -->
+    <section class="section container" id="musica">
+      <div class="section-heading">
+        <div class="eyebrow">07 / Un espacio personal</div>
+        <h2>Músicas para calmarme.</h2>
+        <p>Hay canciones que hacen que todo vaya un poco más despacio. Esta es una pequeña selección de las que me acompañan.</p>
+      </div>
+      <div class="music-panel glass">
+        <div class="music-intro">
+          <div class="skill-icon" style="font-size:1.25rem">♫</div>
+          <h3>Una pausa entre tanto código.</h3>
+          <p class="muted">La música también forma parte de mi forma de desconectar, pensar y encontrar un poco de tranquilidad.</p>
+          <span class="pill">MI LISTA PERSONAL · 07 TRACKS</span>
+          <div class="music-player" aria-label="Reproductor de música">
+            <div class="music-now">
+              <div><strong id="musicCurrentTitle">From the Start</strong><br><small id="musicCurrentArtist">Laufey</small></div>
+              <small id="musicStatus">Preparando reproducción…</small>
+            </div>
+            <audio id="musicAudio" preload="metadata"></audio>
+            <input class="music-progress" id="musicProgress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso de la canción">
+            <div class="music-bottom"><span id="musicElapsed">0:00</span><span id="musicDuration">0:00</span></div>
+            <div class="music-controls" style="margin-top:12px">
+              <button class="music-control" id="musicPrev" type="button" aria-label="Canción anterior">⏮</button>
+              <button class="music-control" id="musicPlay" type="button" aria-label="Reproducir o pausar">▶</button>
+              <button class="music-control" id="musicNext" type="button" aria-label="Canción siguiente">⏭</button>
+              <label class="music-volume">Volumen <input id="musicVolume" type="range" min="0" max="1" value="0.18" step="0.01" aria-label="Volumen"></label>
+            </div>
+          </div>
+        </div>
+        <div class="music-list" id="musicList">
+          <!-- Para cambiar una canción, conserva el título/artista y actualiza su archivo MP3 en data-src. -->
+          <button class="music-track is-playing" type="button" data-src="musica/from-the-start.mp3" data-title="From the Start" data-artist="Laufey">
+            <span class="music-number">01</span><span><strong>From the Start</strong><small>Laufey</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/hug-all-ur-friends.mp3" data-title="Hug All Ur Friends" data-artist="Cavetown">
+            <span class="music-number">02</span><span><strong>Hug All Ur Friends</strong><small>Cavetown</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/somewhere-only-we-know.mp3" data-title="Somewhere Only We Know" data-artist="Keane">
+            <span class="music-number">03</span><span><strong>Somewhere Only We Know</strong><small>Keane</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/notion.mp3" data-title="Notion" data-artist="The Rare Occasions">
+            <span class="music-number">04</span><span><strong>Notion</strong><small>The Rare Occasions</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/swing-lynn.mp3" data-title="Swing Lynn" data-artist="Harmless">
+            <span class="music-number">05</span><span><strong>Swing Lynn</strong><small>Harmless</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/talk-about-it-later.mp3" data-title="Talk About It Later" data-artist="Junkyard Cat">
+            <span class="music-number">06</span><span><strong>Talk About It Later</strong><small>Junkyard Cat</small></span>
+          </button>
+          <button class="music-track" type="button" data-src="musica/victim.mp3" data-title="Victim" data-artist="Ax and the Hatchetmen">
+            <span class="music-number">07</span><span><strong>Victim</strong><small>Ax and the Hatchetmen</small></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 08: metas académicas, profesionales y proyectos futuros -->
+\n    <section class="section container" id="metas">
+      <div class="section-heading">
+        <div class="eyebrow">08 / Objetivos</div>
+        <h2>Lo que quiero construir.</h2>
+        <p>Estoy en una etapa de exploración: quiero fortalecer mis bases y descubrir en qué áreas puedo aportar más.</p>
+      </div>
+      <div class="goals-grid">
+        <article class="goal soft-card"><div class="skill-icon">⌑</div><h3>Ciberseguridad defensiva</h3><p>Profundizar en protección de sistemas, seguridad de redes, monitoreo y administración segura.</p></article>
+        <article class="goal soft-card"><div class="skill-icon">〈/〉</div><h3>Desarrollo web</h3><p>Aprender CSS y JavaScript para crear páginas web completas y, a futuro, ofrecer servicios de desarrollo.</p></article>
+        <article class="goal soft-card"><div class="skill-icon">▧</div><h3>Diseño y animación 3D</h3><p>Explorar modelado, animación y renders para proyectos creativos, incluyendo comunidades y servidores de Minecraft.</p></article>
+        <article class="goal soft-card"><div class="skill-icon">⌘</div><h3>Administración de sistemas</h3><p>Ampliar mis conocimientos en sistemas operativos, infraestructura y soporte técnico.</p></article>
+        <article class="goal soft-card"><div class="skill-icon">↗</div><h3>Formación universitaria</h3><p>Continuar mis estudios y prepararme para oportunidades académicas y profesionales en tecnología.</p></article>
+        <article class="goal soft-card"><div class="skill-icon">◇</div><h3>Emprendimiento tecnológico</h3><p>Con el tiempo, desarrollar servicios propios relacionados con páginas web, informática o diseño digital.</p></article>
+      </div>
+    </section>
+
+    <!-- EDITAR SECCIÓN 09: correo y enlaces de contacto que quieras hacer públicos -->\n    <section class="section container" id="contacto">
+      <div class="contact-box glass">
+        <div><div class="eyebrow">09 / Contacto</div><h2>¿Hablamos de tecnología?</h2><p>Estoy abierto a conocer oportunidades de aprendizaje, colaboraciones y proyectos relacionados con informática, ciberseguridad y desarrollo web.</p></div>
+        <a class="btn btn-primary" href="mailto:TU_CORREO@ejemplo.com">Escríbeme ↗</a>
+      </div>
+      <p class="muted" style="font-size:.76rem;margin:12px 4px 0">Antes de publicar, reemplaza el correo de ejemplo por una dirección profesional que quieras compartir.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="footer-inner"><span>© 2026 Jatniel Rodríguez · Portafolio personal</span><span>Hecho con curiosidad y una chocolatada fría :3</span></div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const opened = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(opened));
+      menuToggle.textContent = opened ? '✕' : '☰';
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = '☰';
+      });
+    });
+    const sections = document.querySelectorAll('main section[id]');
+    const links = document.querySelectorAll('.nav-links a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => observer.observe(section));
+
+    // Reproductor de la lista personal: los MP3 se cargan desde la carpeta "musica".
+    const musicAudio = document.getElementById('musicAudio');
+    const musicTracks = [...document.querySelectorAll('.music-track')];
+    const musicPlay = document.getElementById('musicPlay');
+    const musicProgress = document.getElementById('musicProgress');
+    const musicVolume = document.getElementById('musicVolume');
+    const musicStatus = document.getElementById('musicStatus');
+    const musicCurrentTitle = document.getElementById('musicCurrentTitle');
+    const musicCurrentArtist = document.getElementById('musicCurrentArtist');
+    const musicElapsed = document.getElementById('musicElapsed');
+    const musicDuration = document.getElementById('musicDuration');
+    let currentMusicIndex = 0;
+
+    musicAudio.volume = 0.18; // Volumen inicial suave (18%).
+    musicVolume.value = musicAudio.volume;
+
+    function musicTime(seconds) {
+      if (!Number.isFinite(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+
+    function loadMusic(index, autoplay = true) {
+      currentMusicIndex = (index + musicTracks.length) % musicTracks.length;
+      const track = musicTracks[currentMusicIndex];
+      musicTracks.forEach((item, i) => {
+        item.classList.toggle('is-playing', i === currentMusicIndex);
+        item.setAttribute('aria-current', i === currentMusicIndex ? 'true' : 'false');
+      });
+      musicCurrentTitle.textContent = track.dataset.title;
+      musicCurrentArtist.textContent = track.dataset.artist;
+      musicAudio.src = track.dataset.src;
+      musicAudio.load();
+      musicProgress.value = 0;
+      musicElapsed.textContent = '0:00';
+      musicDuration.textContent = '0:00';
+      musicStatus.textContent = 'Cargando…';
+      if (autoplay) {
+        const playAttempt = musicAudio.play();
+        if (playAttempt) playAttempt.then(() => {
+          musicStatus.textContent = 'Reproduciendo';
+          musicPlay.textContent = 'Ⅱ';
+        }).catch(() => {
+          musicStatus.textContent = 'Pulsa ▶ para iniciar';
+          musicPlay.textContent = '▶';
+        });
+      }
+    }
+
+    musicTracks.forEach((track, index) => {
+      track.addEventListener('click', () => loadMusic(index, true));
+    });
+    musicPlay.addEventListener('click', () => {
+      if (musicAudio.paused) {
+        musicAudio.play().then(() => {
+          musicStatus.textContent = 'Reproduciendo';
+          musicPlay.textContent = 'Ⅱ';
+        }).catch(() => musicStatus.textContent = 'No se pudo iniciar. Comprueba el archivo MP3.');
+      } else {
+        musicAudio.pause();
+      }
+    });
+    document.getElementById('musicPrev').addEventListener('click', () => loadMusic(currentMusicIndex - 1));
+    document.getElementById('musicNext').addEventListener('click', () => loadMusic(currentMusicIndex + 1));
+    musicVolume.addEventListener('input', () => musicAudio.volume = Number(musicVolume.value));
+    musicProgress.addEventListener('input', () => {
+      if (Number.isFinite(musicAudio.duration)) musicAudio.currentTime = (Number(musicProgress.value) / 100) * musicAudio.duration;
+    });
+    musicAudio.addEventListener('timeupdate', () => {
+      if (Number.isFinite(musicAudio.duration)) musicProgress.value = (musicAudio.currentTime / musicAudio.duration) * 100;
+      musicElapsed.textContent = musicTime(musicAudio.currentTime);
+    });
+    musicAudio.addEventListener('loadedmetadata', () => musicDuration.textContent = musicTime(musicAudio.duration));
+    musicAudio.addEventListener('play', () => {
+      musicPlay.textContent = 'Ⅱ';
+      musicStatus.textContent = 'Reproduciendo';
+    });
+    musicAudio.addEventListener('pause', () => {
+      musicPlay.textContent = '▶';
+      if (musicAudio.currentTime > 0 && !musicAudio.ended) musicStatus.textContent = 'En pausa';
+    });
+    musicAudio.addEventListener('ended', () => loadMusic(currentMusicIndex + 1));
+    musicAudio.addEventListener('error', () => {
+      musicStatus.textContent = 'Falta el MP3 de esta canción';
+    });
+
+    // Se intenta iniciar From the Start al entrar; algunos navegadores exigen un clic previo.
+    loadMusic(0, true);
+  </script>
+</body>
+</html>
